@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>HTML Video</title>
+  <meta name="description" content="What is here.">
+  <meta name="author" content="YOU">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Icons full set: 16x, 32x, 48x, 180x-->
+  <link rel="icon" href="img/favicon.ico">
+  <!-- Toolbars - high-resolution displays -->
+  <link rel="icon" type="image/png" href="img/icons/logo32.png">
+  <!-- iPhone X, iPhone 8 Plus, iPhone 7 Plus, iPhone 6s Plus, iPhone 6 Plus -->
+  <link rel="apple-touch-icon" href="img/icons/180x180.png">
+  <!-- Android Devices High Resolution -->
+  <link rel="icon" sizes="192x192" href="icon-hd.png">
+  <!-- Android Devices Normal Resolution -->
+  <link rel="icon" sizes="128x128" href="icon.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="demo.css">
+  <style>
+    #vid2 {filter: url(#convolve)}
+  </style>
+
+  <!-- JS -->
+  <script></script>
+</head>
+
+<body>
+
+  <!-- video tag allows for html embedding of video
+    the video tag has the following attributes: autoplay, controls, loop, muted, poster, preload, along with width and height
+    New attributes that may not be fully supported are playsinline and controlsList
+    playsinline keeps a video from being full screen or block element on mobile
+    controlsList allows you to turn off default functionality such as fullscreen or download.  Learn more about controlsList:
+    https://googlechrome.github.io/samples/media/controlslist.html -->
+  <video controls poster="video/thumbnails/parkthumb.png">
+    <!-- Video files -->
+    <!-- target specific section of video using seconds:
+    Media fragments #t=20 playback begins 00:20 mm:ss
+    10,20 - starts playing at 10 seconds stops at 20
+    may also be defined by hour-minute-second #t=00:00:20
+    <source src="video/gob.mp4#t=10,20" type="video/mp4"> -->
+    <source src="video/parkvid.mp4" type="video/mp4">
+    <source src="video/gob.webm" type="video/webm">
+    <!-- Caption files - Web Video Text Tracks
+    <track src="mySubs.vtt" kind="subtitles" OR kind="captions" srclang="en" label="English"> -->
+    <track src="video/parksub.vtt" kind="captions" srclang="en" label="English" default>
+    <!---<track src="video/gobES.vtt" kind="captions" srclang="es" label="Spanish">-------->
+    <!-- Fallback for browsers that don't support the <video> element -->
+    <a href="video/parkvid.mp4" download>Download</a>
+  </video>
+
+  <video id="vid2" controls poster="video/thumbnails/parkthumb.png">
+    <!-- Video files -->
+    <!-- target specific section of video using seconds:
+    <source src="video/gob.mp4#t=10,20" type="video/mp4"> -->
+    <source src="video/parkvid.mp4" type="video/mp4">
+    <source src="video/gob.webm" type="video/webm">
+    <!-- Caption files - Web Video Text Tracks
+    <track src="mySubs.vtt" kind="subtitles" OR kind="captions" srclang="en" label="English"> -->
+    <track src="video/parksub.vtt" kind="captions" srclang="en" label="English" default>
+    <!--<track src="video/gobES.vtt" kind="captions" srclang="es" label="Spanish">--------->
+    <!-- Fallback for browsers that don't support the <video> element -->
+    <a href="video/parkvid.mp4" download>Download</a>
+  </video>
+
+  <svg xmlns="http://www.w3.org/2000/svg">
+    <defs><!-- definitions to contain special elements such as filters -->
+      <filter id="blurEffect"> <!--required to define SVG filter and id to identify filter -->
+        <feGaussianBlur stdDeviation="10"/> <!-- standard deviation -->
+      </filter>
+      <filter id="displacement">
+        <feDisplacementMap scale="100" in="SourceGraphic" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="inverse">
+        <feComponentTransfer>
+          <!-- tableValues attribute defines a list of numbers defining a lookup table of values for a color component transfer function.  Values between 0 and 1 -->
+          <feFuncR type="table" tableValues="1 0"/>
+          <feFuncG type="table" tableValues="1 0"/>
+          <feFuncB type="table" tableValues="1 0"/>
+        </feComponentTransfer>
+      </filter>
+      <filter id="convolve">
+        <!-- The <feConvolveMatrix> SVG filter primitive applies a matrix convolution filter effect. A convolution combines pixels in the input image with neighboring pixels to produce a resulting image. A wide variety of imaging operations can be achieved through convolutions, including blurring, edge detection, sharpening, embossing and beveling. -->
+        <feConvolveMatrix order="3" kernelMatrix="1 -1  1 -1 -0.01 -1 1 -1 1"/>
+      </filter>
+      <filter id="displacementFilter">
+        <feTurbulence type="turbulence" baseFrequency="0.01" numOctaves="2" result="turbulence"/>
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="50" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+</body>
+</html>
